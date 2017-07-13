@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+//        var element = document.createElement("script");
+////        var scriptPath = "http://localhost:8080/{scriptfilename}.js" //verify the script path
+//        element.setAttribute("src", scriptPath);
+//        document.head.appendChild(element)
+    </script>
+    <style>
+        /*body {background-color: powderblue;}*/
+        h1 {color: blue;}
+        p {color: red;}
+        #speelbord {margin:10px;font-size:1.25em;}
+        table {border-collapse:collapse;border:1px solid #7f7f7f;}
+        td {border:1px solid #7f7f7f;width:150px;height:150px;text-align:center;}
+    </style>
+</head>
+<body>
+<center>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+
+<div id="speelbord"></div>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+
+    <div></div>
+</center>
+<script>
+    function Board(id) {
+        this.id = id;
+        var beurt = 0;
+        var tijdsduur = 0;
+        var maximumBeurten = 50;
+        var aantalRijen = 3;
+        var aantalCellen = aantalRijen;
+
+    }
+    function Castle(id, type, color) {
+        this.id = id;
+        this.type = type;
+        this.color = color;
+        this.health=  1000;
+    }
+
+    function Player (name, type, color) {
+        this.id = name;
+        this.type = type;
+        this.color = color;
+    }
+
+    function Soldier (id, castle,state,color) {
+        this.id = id;
+        this.castle_id = castle.id;
+        this.state = state;
+        this.color = color;
+    }
+
+    var redPlayer = new Player("red player", "human", "RED");
+    var bluePlayer = new Player("blue player", "human", "BLUE");
+    console.log(redPlayer);
+    console.log(bluePlayer);
+    console.log(castle);
+    console.log(soldiers);
+</script>
+<script>
+    var aantalRijen = 3;
+    var aantalCellen = 3;
+    var min = 0;
+    var max = aantalRijen-1;
+
+    function selecteerCel(cell) {
+        console.log(cell.target.id);
+    }
+    function maakTabel() {
+        // krijg the juiste "references"
+        var speelBord = document.getElementById('speelbord');
+
+        // creëer een <table> element
+        var tabel = document.createElement("table");
+        tabel.id = "tabel";
+
+        // creëer rijen
+        for (var r = 0; r < aantalRijen; r++) {
+            var rij = document.createElement("tr");
+            for (var c = 1; c <= aantalCellen; c++) {//creëer cellen in een rij
+                var cel = document.createElement("td");
+                var cel_id = "CEL"+r.toString()+c.toString();
+                    cel.setAttribute("id", cel_id);
+                    cel.addEventListener("click", selecteerCel, false);
+                    console.log(cel_id);
+//                randomGetal = Math.floor(Math.random() * (max - min + 1)) + min;
+                var celTekst = document.createTextNode(cel_id.toString());
+                cel.appendChild(celTekst);
+                rij.appendChild(cel);
+            }
+            tabel.appendChild(rij); //voeg rij toe aan het uiteinde van de tabel
+        }
+        speelBord.appendChild(tabel); // voeg de <table> toe aan 'speelbord'
+    }
+
+    window.onload=maakTabel;
+</script>
+</body>
+</html>

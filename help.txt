@@ -1,0 +1,5 @@
+Java Objects vs Javascripts Objects (prototypin)
+https://developer.mozilla.org/nl/docs/Web/JavaScript/Guide/Details_of_the_Object_Model
+
+Stackoverflow mooi voorbeeld
+https://stackoverflow.com/questions/597769/how-do-i-create-an-abstract-base-class-in-javascript
