@@ -19,29 +19,28 @@
     </style>
 </head>
 <body>
-<center>
     <br/>
     <br/>
     <br/>
     <br/>
 
-<div id="speelbord"></div>
+    <div id="speelbord" style="align-content: center">
+
+    </div>
     <br/>
     <br/>
     <br/>
     <br/>
 
-    <div></div>
-</center>
+    <div style="align-content: center"></div>
 <script>
-    function Board(id) {
+    function Board(id, rijen, kolommen) {
         this.id = id;
         var beurt = 0;
         var tijdsduur = 0;
         var maximumBeurten = 50;
-        var aantalRijen = 3;
-        var aantalCellen = aantalRijen;
-
+        var aantalRijen = rijen;
+        var aantalCellen = kolommen;
     }
     function Castle(id, type, color) {
         this.id = id;
@@ -63,12 +62,15 @@
         this.color = color;
     }
 
+    var gameBoard = new Board(1337, 3, 3);
     var redPlayer = new Player("red player", "human", "RED");
     var bluePlayer = new Player("blue player", "human", "BLUE");
+    var mainCastle = new Castle(gameBoard.id + "C", "Stone", "DarkGray");
+    var currentSoldier = new Soldier(gameBoard.id + "C", mainCastle, "init", "Yellow");
     console.log(redPlayer);
     console.log(bluePlayer);
-    console.log(castle);
-    console.log(soldiers);
+    console.log(mainCastle);
+    console.log(Soldier);
 </script>
 <script>
     var aantalRijen = 3;
@@ -95,7 +97,7 @@
                 var cel_id = "CEL"+r.toString()+c.toString();
                     cel.setAttribute("id", cel_id);
                     cel.addEventListener("click", selecteerCel, false);
-                    console.log(cel_id);
+                // console.log(cel_id);
 //                randomGetal = Math.floor(Math.random() * (max - min + 1)) + min;
                 var celTekst = document.createTextNode(cel_id.toString());
                 cel.appendChild(celTekst);
@@ -105,7 +107,6 @@
         }
         speelBord.appendChild(tabel); // voeg de <table> toe aan 'speelbord'
     }
-
     window.onload=maakTabel;
 </script>
 </body>
