@@ -44,9 +44,11 @@
 </div>
 <br/><br/><br/><br/>
 <script>
+    /** CLASSES **/
     function Board(id, rows, columns) {
         this.id = id;
-        this.description = "Board_object";
+        this.description = "Main Board ~ all settings should be set in advance. This ensures a fair game for both players";
+        this.desc_name = "Board(" + id + ")";
         this.setRows = rows;
         this.setColumns = columns;
         this.turn = -1;
@@ -55,25 +57,54 @@
     }
     function Castle(id, type, color) {
         this.id = id;
-        this.description = "Castle_object";
+        this.desc_name = "Castle(" + id + ")";
         this.type = type;
         this.color = color;
         this.health = 1000;
     }
-
     function Player(name, type, color) {
         this.id = name;
-        this.description = "Player(" + color + ")";
+        this.desc_name = "Player(" + color + ")";
         this.type = type;
         this.color = color;
     }
-
     function Soldier(id, castle, state, color) {
         this.id = id;
-        this.description = "Soldier(" + color + ")[" + state + "]";
+        this.desc_name = "Soldier(" + color + ")[" + state + "]";
         this.castle_id = castle.id;
         this.state = state;
         this.color = color;
+    }
+</script>
+<script>
+    /** FUNCTIONS **/
+    function selectedCell(cell) {//Mouse Click function activation on any given cell.
+        console.log(cell.target.id);
+    }
+
+    function getTable() {
+        return document.getElementById('speelbord');
+    }
+
+    function initTable() {
+
+        var speelBord = getTable();//Get current HTML DIV for the gameboard.
+        var tabel = document.createElement("table");
+        for (var r = 0; r < gameBoard.setRows; r++) {//Creating rows based on setRows in gameBoard.
+            var rij = document.createElement("tr");//create row within current table
+            for (var c = 1; c <= gameBoard.setColumns; c++) {//create cells within current table row | creëer cellen in huidige rij
+                var cel = document.createElement("td");
+                var cel_id = "CEL" + r.toString() + c.toString();
+                cel.setAttribute("id", cel_id);
+                cel.addEventListener("click", selectedCell, false);
+//                randomGetal = Math.floor(Math.random() * (max - min + 1)) + min;
+                var celTekst = document.createTextNode(cel_id.toString());
+                cel.appendChild(celTekst);
+                rij.appendChild(cel);
+            }
+            tabel.appendChild(rij); //voeg rij toe aan het uiteinde van de tabel
+        }
+        speelBord.appendChild(tabel); // voeg de <table> toe aan 'speelbord'
     }
 </script>
 <script>
@@ -87,34 +118,9 @@
     console.log(mainCastle);
     console.log(currentSoldier);
     console.log(gameBoard);
-    function selecteerCel(cell) {
-        console.log(cell.target.id);
-    }
-    function maakTabel() {
-        // krijg the juiste "references"
-        var speelBord = document.getElementById('speelbord');
-        // creëer een <table> element
-        var tabel = document.createElement("table");
-        tabel.id = "tabel";
-        // creëer rows
-        for (var r = 0; r < gameBoard.setRows; r++) {
-            var rij = document.createElement("tr");
-            for (var c = 1; c <= gameBoard.setColumns; c++) {//creëer cellen in een rij
-                var cel = document.createElement("td");
-                var cel_id = "CEL" + r.toString() + c.toString();
-                cel.setAttribute("id", cel_id);
-                cel.addEventListener("click", selecteerCel, false);
-//                randomGetal = Math.floor(Math.random() * (max - min + 1)) + min;
-                var celTekst = document.createTextNode(cel_id.toString());
-                cel.appendChild(celTekst);
-                rij.appendChild(cel);
-            }
-            tabel.appendChild(rij); //voeg rij toe aan het uiteinde van de tabel
-        }
-        speelBord.appendChild(tabel); // voeg de <table> toe aan 'speelbord'
-    }
 
-    window.onload = maakTabel;
+
+    window.onload = initTable;
 </script>
 </body>
 </html>
