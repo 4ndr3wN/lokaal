@@ -6,7 +6,7 @@
     <style>
         body {
             align-content: center;
-            background-color: powderblue;
+            background-color: #2E2E34;
         }
 
         h1 {
@@ -17,12 +17,15 @@
             color: red;
         }
 
-        #speelbord {
-            /*margin:10px;*/
-            margin-left: 25%;
-            margin-right: 25%;
+        #speelbord table {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            margin: 25% auto;
             font-size: 1.25em;
+            content: "";
             background-color: honeydew;
+            border: 4px solid rgb(50, 50, 50);
         }
 
         table {
@@ -87,7 +90,6 @@
     }
 
     function initTable() {
-
         var speelBord = getTable();//Get current HTML DIV for the gameboard.
         var tabel = document.createElement("table");
         for (var r = 0; r < gameBoard.setRows; r++) {//Creating rows based on setRows in gameBoard.
@@ -108,7 +110,36 @@
     }
 </script>
 <script>
-    var gameBoard = new Board(1337, 3, 3);
+    /**
+     *  BROWSER API
+     */
+        // XHR #XMLHttpRequest
+    var verseChoose = document.querySelector('select');
+    var poemDisplay = document.querySelector('pre');
+
+    verseChoose.onchange = function () {
+        var verse = verseChoose.value;
+        updateDisplay(verse);
+    };
+
+    function updateDisplay(verse) {
+
+    }
+
+    verse = verse.replace(" ", "");
+    verse = verse.toLowerCase();
+    var url = 'browser_api/' + verse + '.txt';
+    var reqObj = new XMLHttpRequest();
+    reqObj.open('GET', url);
+
+
+    /**
+     *  PUBLIC API
+     */
+
+</script>
+<script>
+    var gameBoard = new Board(1337, 4, 4);
     var redPlayer = new Player("red player", "human", "RED");
     var bluePlayer = new Player("blue player", "human", "BLUE");
     var mainCastle = new Castle(gameBoard.id + "C", "Stone", "DarkGray");
@@ -118,8 +149,6 @@
     console.log(mainCastle);
     console.log(currentSoldier);
     console.log(gameBoard);
-
-
     window.onload = initTable;
 </script>
 </body>
