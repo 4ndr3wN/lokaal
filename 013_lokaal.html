@@ -130,7 +130,14 @@
     verse = verse.toLowerCase();
     var url = 'browser_api/' + verse + '.txt';
     var reqObj = new XMLHttpRequest();
-    reqObj.open('GET', url);
+    reqObj.open('GET', url); //request method and url we want to use.
+    reqObj.responseType = 'text';//expecting this type of response from the server
+    reqObj.onload = function () {
+        poemDisplay.textContent = reqObj.response;
+    };
+    reqObj.send();
+    updateDisplay('Verse 1');
+    verseChoose.value = 'Verse 1';
 
 
     /**
